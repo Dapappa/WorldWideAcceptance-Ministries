@@ -145,13 +145,23 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Give Button - Desktop */}
-          <Link
-            href="/giving"
-            className="hidden lg:inline-flex btn-primary py-2 px-6 text-sm"
-          >
-            Give
-          </Link>
+          {/* Action Buttons - Desktop */}
+          <div className="hidden lg:flex items-center gap-3">
+            <a
+              href="https://www.google.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline py-2 px-6 text-sm"
+            >
+              Google
+            </a>
+            <Link
+              href="/giving"
+              className="btn-primary py-2 px-6 text-sm"
+            >
+              Give
+            </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -217,10 +227,18 @@ export default function Header() {
                   </div>
                 ))}
 
+                <a
+                  href="https://www.google.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mt-4 btn-outline text-center"
+                >
+                  Google
+                </a>
                 <Link
                   href="/giving"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block mt-4 btn-primary text-center"
+                  className="block btn-primary text-center"
                 >
                   Give
                 </Link>

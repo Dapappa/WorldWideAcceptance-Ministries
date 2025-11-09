@@ -43,26 +43,29 @@ export default function BibleVerseOverlay() {
     // Generate random positions for verses
     const generatePositions = (): VersePosition[] => {
       const positions: VersePosition[] = []
-      const numVerses = 4 // Show 4 verses at a time for better visibility
-      
+      const numVerses = 8 // Show 8 verses at a time for maximum visibility
+
       // Get random verses
       const shuffled = [...bibleVerses].sort(() => 0.5 - Math.random())
       const selectedVerses = shuffled.slice(0, numVerses)
 
       selectedVerses.forEach((verse, index) => {
-        // Positions that work well on mobile and desktop - avoiding header/footer areas
-        // More spread out positions for better visibility
+        // More positions covering the entire screen
         const positionsConfig = [
-          { top: '18%', left: '2%', rotation: -2 },
-          { top: '38%', left: '75%', rotation: 3 },
-          { top: '62%', left: '3%', rotation: -1.5 },
-          { top: '28%', left: '70%', rotation: 2 },
-          { top: '52%', left: '1%', rotation: 1 },
-          { top: '72%', left: '73%', rotation: -2.5 },
-          { top: '45%', left: '50%', rotation: 1.5 },
-          { top: '25%', left: '25%', rotation: -1 },
+          { top: '10%', left: '2%', rotation: -2 },
+          { top: '15%', left: '75%', rotation: 3 },
+          { top: '25%', left: '45%', rotation: -1 },
+          { top: '35%', left: '85%', rotation: 2 },
+          { top: '45%', left: '5%', rotation: 1.5 },
+          { top: '55%', left: '70%', rotation: -2.5 },
+          { top: '65%', left: '30%', rotation: 1 },
+          { top: '75%', left: '80%', rotation: -1.5 },
+          { top: '18%', left: '25%', rotation: 2.5 },
+          { top: '40%', left: '50%', rotation: -1 },
+          { top: '60%', left: '10%', rotation: 1 },
+          { top: '80%', left: '55%', rotation: -2 },
         ]
-        
+
         const pos = positionsConfig[index % positionsConfig.length]
         positions.push({
           id: Date.now() + index,
@@ -74,21 +77,18 @@ export default function BibleVerseOverlay() {
       return positions
     }
 
-    // Initial verses after short delay
-    const initialDelay = setTimeout(() => {
-      setVerses(generatePositions())
-    }, 1000) // Show after 1 second
+    // Initial verses immediately
+    setVerses(generatePositions())
 
-    // Rotate verses periodically
+    // Rotate verses more frequently
     const rotationInterval = setInterval(() => {
       setVerses([]) // Clear first
       setTimeout(() => {
         setVerses(generatePositions())
-      }, 500)
-    }, 20000) // Change every 20 seconds
+      }, 300)
+    }, 8000) // Change every 8 seconds for more frequent updates
 
     return () => {
-      clearTimeout(initialDelay)
       clearInterval(rotationInterval)
     }
   }, [])
@@ -102,10 +102,10 @@ export default function BibleVerseOverlay() {
             <motion.div
               key={versePos.id}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 0.3, scale: 1 }}
+              animate={{ opacity: 0.6, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ 
-                duration: 1.5,
+              transition={{
+                duration: 1,
                 ease: [0.16, 1, 0.3, 1]
               }}
               className="absolute max-w-[240px] sm:max-w-[280px] md:max-w-[320px] px-2 sm:px-4"
@@ -115,10 +115,10 @@ export default function BibleVerseOverlay() {
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <p className="text-primary-dark/80 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>
+              <p className="text-primary-dark font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none" style={{ textShadow: '0 1px 3px rgba(255,255,255,0.9)' }}>
                 "{versePos.verse.text}"
               </p>
-              <p className="text-accent/70 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>
+              <p className="text-accent text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none" style={{ textShadow: '0 1px 3px rgba(255,255,255,0.9)' }}>
                 — {versePos.verse.reference}
               </p>
             </motion.div>
