@@ -126,18 +126,18 @@ export default function BibleVerseOverlay() {
                 duration: 1,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="absolute max-w-[180px] sm:max-w-[220px] md:max-w-[280px] lg:max-w-[320px] px-2 sm:px-3 md:px-4"
+              className="absolute max-w-[180px] sm:max-w-[220px] md:max-w-[280px] lg:max-w-[320px] px-2 sm:px-3 md:px-4 [&>div]:opacity-30 md:[&>div]:opacity-100"
               style={{
                 top: versePos.position.top,
                 left: versePos.position.left,
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg">
-                <p className="text-primary-dark font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none">
+              <div className="bg-transparent md:bg-white/90 md:backdrop-blur-sm rounded-lg p-2 sm:p-3 md:shadow-lg">
+                <p className="text-primary-dark/30 md:text-primary-dark font-serif italic text-[9px] sm:text-[10px] md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none">
                   "{versePos.verse.text}"
                 </p>
-                <p className="text-accent text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none">
+                <p className="text-accent/30 md:text-accent text-[8px] sm:text-[9px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none">
                   — {versePos.verse.reference}
                 </p>
               </div>
