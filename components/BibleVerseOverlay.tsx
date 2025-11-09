@@ -26,104 +26,99 @@ const bibleVerses: BibleVerse[] = [
   { text: "The Lord is my light and my salvation—whom shall I fear?", reference: "Psalm 27:1" },
 ]
 
-export default function BibleVerseOverlay() {
-  const [currentVerse, setCurrentVerse] = useState<BibleVerse | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    // Show first verse after initial delay (longer delay to not distract from initial page load)
-    const initialDelay = setTimeout(() => {
-      const randomVerse = bibleVerses[Math.floor(Math.random() * bibleVerses.length)]
-      setCurrentVerse(randomVerse)
-      setIsVisible(true)
-    }, 5000) // Wait 5 seconds before first verse
-
-    return () => clearTimeout(initialDelay)
-  }, [])
-
-  useEffect(() => {
-    if (!isVisible) return
-
-    // Hide verse after 7 seconds (shorter display time to be less distracting)
-    const hideTimer = setTimeout(() => {
-      setIsVisible(false)
-    }, 7000)
-
-    // Show next verse after 20 seconds (13 seconds after hiding - longer gap)
-    const nextVerseTimer = setTimeout(() => {
-      const randomVerse = bibleVerses[Math.floor(Math.random() * bibleVerses.length)]
-      setCurrentVerse(randomVerse)
-      setIsVisible(true)
-    }, 20000)
-
-    return () => {
-      clearTimeout(hideTimer)
-      clearTimeout(nextVerseTimer)
-    }
-  }, [isVisible, currentVerse])
-
-  return (
-    <AnimatePresence>
-      {isVisible && currentVerse && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: -20 }}
-          transition={{ 
-            duration: 0.6,
-            ease: [0.16, 1, 0.3, 1] // Custom easing for smooth animation
-          }}
-          className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-[9998] pointer-events-none max-w-2xl w-[90%] px-4"
-        >
-          <motion.div
-            initial={{ filter: 'blur(10px)' }}
-            animate={{ filter: 'blur(0px)' }}
-            exit={{ filter: 'blur(10px)' }}
-            transition={{ duration: 0.5 }}
-            className="bg-white/92 backdrop-blur-md rounded-2xl p-5 md:p-7 shadow-xl border border-accent/15 relative overflow-hidden"
-          >
-            {/* Subtle golden glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/5 opacity-50" />
-            
-            {/* Decorative corner accent */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-accent/10 to-transparent rounded-bl-full" />
-            
-            <div className="relative z-10">
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="text-primary-dark text-base md:text-lg font-serif italic text-center mb-2 leading-relaxed"
-              >
-                "{currentVerse.text}"
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="text-accent text-xs md:text-sm font-semibold text-center"
-              >
-                — {currentVerse.reference}
-              </motion.p>
-            </div>
-
-            {/* Subtle shimmer effect */}
-            <motion.div
-              animate={{
-                backgroundPosition: ['0% 0%', '100% 100%'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatType: 'reverse',
-                ease: 'linear',
-              }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_200%] opacity-30"
-            />
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
+interface VersePosition {
+  id: number
+  verse: BibleVerse
+  position: {
+    top: string
+    left: string
+    rotation: number
+  }
 }
 
+export default function BibleVerseOverlay() {
+  const [verses, setVerses] = useState<VersePosition[]>([])
+
+  useEffect(() => {
+    // Generate random positions for verses
+    const generatePositions = (): VersePosition[] => {
+      const positions: VersePosition[] = []
+      const numVerses = 3 // Show 3 verses at a time
+      
+      // Get random verses
+      const shuffled = [...bibleVerses].sort(() => 0.5 - Math.random())
+      const selectedVerses = shuffled.slice(0, numVerses)
+
+      selectedVerses.forEach((verse, index) => {
+        // Positions that work well on mobile and desktop - avoiding header/footer areas
+        const positionsConfig = [
+          { top: '20%', left: '3%', rotation: -2 },
+          { top: '40%', left: '72%', rotation: 3 },
+          { top: '65%', left: '5%', rotation: -1.5 },
+          { top: '30%', left: '68%', rotation: 2 },
+          { top: '55%', left: '2%', rotation: 1 },
+          { top: '75%', left: '70%', rotation: -2.5 },
+        ]
+        
+        const pos = positionsConfig[index % positionsConfig.length]
+        positions.push({
+          id: Date.now() + index,
+          verse,
+          position: pos,
+        })
+      })
+
+      return positions
+    }
+
+    // Initial verses after delay
+    const initialDelay = setTimeout(() => {
+      setVerses(generatePositions())
+    }, 3000)
+
+    // Rotate verses periodically
+    const rotationInterval = setInterval(() => {
+      setVerses([]) // Clear first
+      setTimeout(() => {
+        setVerses(generatePositions())
+      }, 500)
+    }, 25000) // Change every 25 seconds
+
+    return () => {
+      clearTimeout(initialDelay)
+      clearInterval(rotationInterval)
+    }
+  }, [])
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
+      <AnimatePresence>
+        {verses.map((versePos) => (
+          <motion.div
+            key={versePos.id}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 0.06, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ 
+              duration: 1.5,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+            className="absolute max-w-[240px] sm:max-w-[280px] md:max-w-[320px] px-2 sm:px-4"
+            style={{
+              top: versePos.position.top,
+              left: versePos.position.left,
+              transform: `rotate(${versePos.position.rotation}deg)`,
+            }}
+          >
+            <p className="text-primary-dark/35 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none">
+              "{versePos.verse.text}"
+            </p>
+            <p className="text-accent/25 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none">
+              — {versePos.verse.reference}
+            </p>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  )
+}

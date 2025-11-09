@@ -38,12 +38,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans relative">
+        <BibleVerseOverlay />
         <Header />
         <main className="min-h-screen relative z-10">
           {children}
         </main>
         <Footer />
-        <BibleVerseOverlay />
       </body>
     </html>
   )
