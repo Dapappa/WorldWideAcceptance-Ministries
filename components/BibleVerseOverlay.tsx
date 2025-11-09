@@ -50,20 +50,20 @@ export default function BibleVerseOverlay() {
       const selectedVerses = shuffled.slice(0, numVerses)
 
       selectedVerses.forEach((verse, index) => {
-        // More positions covering the entire screen
+        // More positions covering the entire screen with better mobile spacing
         const positionsConfig = [
-          { top: '10%', left: '2%', rotation: -2 },
-          { top: '15%', left: '75%', rotation: 3 },
-          { top: '25%', left: '45%', rotation: -1 },
-          { top: '35%', left: '85%', rotation: 2 },
-          { top: '45%', left: '5%', rotation: 1.5 },
-          { top: '55%', left: '70%', rotation: -2.5 },
-          { top: '65%', left: '30%', rotation: 1 },
-          { top: '75%', left: '80%', rotation: -1.5 },
-          { top: '18%', left: '25%', rotation: 2.5 },
-          { top: '40%', left: '50%', rotation: -1 },
-          { top: '60%', left: '10%', rotation: 1 },
-          { top: '80%', left: '55%', rotation: -2 },
+          { top: '12%', left: '3%', rotation: -1.5 },
+          { top: '18%', left: '68%', rotation: 2 },
+          { top: '28%', left: '35%', rotation: -0.5 },
+          { top: '38%', left: '78%', rotation: 1.5 },
+          { top: '48%', left: '8%', rotation: 1 },
+          { top: '58%', left: '62%', rotation: -2 },
+          { top: '68%', left: '25%', rotation: 0.5 },
+          { top: '78%', left: '72%', rotation: -1 },
+          { top: '22%', left: '20%', rotation: 2 },
+          { top: '43%', left: '45%', rotation: -0.5 },
+          { top: '63%', left: '12%', rotation: 1 },
+          { top: '83%', left: '50%', rotation: -1.5 },
         ]
 
         const pos = positionsConfig[index % positionsConfig.length]
@@ -102,23 +102,23 @@ export default function BibleVerseOverlay() {
             <motion.div
               key={versePos.id}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 0.6, scale: 1 }}
+              animate={{ opacity: 0.5, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{
                 duration: 1,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="absolute max-w-[240px] sm:max-w-[280px] md:max-w-[320px] px-2 sm:px-4"
+              className="absolute max-w-[180px] sm:max-w-[220px] md:max-w-[280px] lg:max-w-[320px] px-2 sm:px-3 md:px-4"
               style={{
                 top: versePos.position.top,
                 left: versePos.position.left,
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <p className="text-primary-dark font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none" style={{ textShadow: '0 1px 3px rgba(255,255,255,0.9)' }}>
+              <p className="text-primary-dark/90 font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none" style={{ textShadow: '0 2px 4px rgba(255,255,255,0.95)' }}>
                 "{versePos.verse.text}"
               </p>
-              <p className="text-accent text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none" style={{ textShadow: '0 1px 3px rgba(255,255,255,0.9)' }}>
+              <p className="text-accent/90 text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none" style={{ textShadow: '0 2px 4px rgba(255,255,255,0.95)' }}>
                 — {versePos.verse.reference}
               </p>
             </motion.div>
