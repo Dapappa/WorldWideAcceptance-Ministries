@@ -43,7 +43,7 @@ export default function BibleVerseOverlay() {
     // Generate random positions for verses
     const generatePositions = (): VersePosition[] => {
       const positions: VersePosition[] = []
-      const numVerses = 3 // Show 3 verses at a time
+      const numVerses = 4 // Show 4 verses at a time for better visibility
       
       // Get random verses
       const shuffled = [...bibleVerses].sort(() => 0.5 - Math.random())
@@ -51,13 +51,16 @@ export default function BibleVerseOverlay() {
 
       selectedVerses.forEach((verse, index) => {
         // Positions that work well on mobile and desktop - avoiding header/footer areas
+        // More spread out positions for better visibility
         const positionsConfig = [
-          { top: '20%', left: '3%', rotation: -2 },
-          { top: '40%', left: '72%', rotation: 3 },
-          { top: '65%', left: '5%', rotation: -1.5 },
-          { top: '30%', left: '68%', rotation: 2 },
-          { top: '55%', left: '2%', rotation: 1 },
-          { top: '75%', left: '70%', rotation: -2.5 },
+          { top: '18%', left: '2%', rotation: -2 },
+          { top: '38%', left: '75%', rotation: 3 },
+          { top: '62%', left: '3%', rotation: -1.5 },
+          { top: '28%', left: '70%', rotation: 2 },
+          { top: '52%', left: '1%', rotation: 1 },
+          { top: '72%', left: '73%', rotation: -2.5 },
+          { top: '45%', left: '50%', rotation: 1.5 },
+          { top: '25%', left: '25%', rotation: -1 },
         ]
         
         const pos = positionsConfig[index % positionsConfig.length]
@@ -71,10 +74,10 @@ export default function BibleVerseOverlay() {
       return positions
     }
 
-    // Initial verses after delay
+    // Initial verses after short delay
     const initialDelay = setTimeout(() => {
       setVerses(generatePositions())
-    }, 3000)
+    }, 1000) // Show after 1 second
 
     // Rotate verses periodically
     const rotationInterval = setInterval(() => {
@@ -82,7 +85,7 @@ export default function BibleVerseOverlay() {
       setTimeout(() => {
         setVerses(generatePositions())
       }, 500)
-    }, 25000) // Change every 25 seconds
+    }, 20000) // Change every 20 seconds
 
     return () => {
       clearTimeout(initialDelay)
@@ -91,13 +94,13 @@ export default function BibleVerseOverlay() {
   }, [])
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
-      <AnimatePresence>
+    <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
+      <AnimatePresence mode="wait">
         {verses.map((versePos) => (
           <motion.div
             key={versePos.id}
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 0.06, scale: 1 }}
+            animate={{ opacity: 0.18, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ 
               duration: 1.5,
@@ -110,10 +113,10 @@ export default function BibleVerseOverlay() {
               transform: `rotate(${versePos.position.rotation}deg)`,
             }}
           >
-            <p className="text-primary-dark/35 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none">
+            <p className="text-primary-dark/60 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none drop-shadow-sm">
               "{versePos.verse.text}"
             </p>
-            <p className="text-accent/25 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none">
+            <p className="text-accent/50 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none drop-shadow-sm">
               — {versePos.verse.reference}
             </p>
           </motion.div>
