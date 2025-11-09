@@ -58,7 +58,9 @@ export default function BibleVerseOverlay() {
     // Generate random positions for verses
     const generatePositions = (): VersePosition[] => {
       const positions: VersePosition[] = []
-      const numVerses = 8 // Show 8 verses at a time for maximum visibility
+      // Show fewer verses on desktop (3-4) vs mobile (8) for subtlety
+      const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768
+      const numVerses = isDesktop ? 3 : 8
 
       // Get random verses
       const shuffled = [...bibleVerses].sort(() => 0.5 - Math.random())
@@ -98,16 +100,19 @@ export default function BibleVerseOverlay() {
     // Initial verses immediately
     setVerses(generatePositions())
 
-    // Rotate verses very frequently - disappear and reappear every few seconds
-    const rotationInterval = setInterval(() => {
+    // Rotate verses less frequently on desktop for subtlety
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 768
+    const rotationInterval = isDesktop ? 15000 : 3000 // 15 seconds on desktop, 3 seconds on mobile
+    
+    const interval = setInterval(() => {
       setVerses([]) // Clear first (disappear)
       setTimeout(() => {
         setVerses(generatePositions()) // Reappear with new verses
       }, 500) // Wait 0.5s before showing new verses
-    }, 3000) // Change every 3 seconds for frequent rotation
+    }, rotationInterval)
 
     return () => {
-      clearInterval(rotationInterval)
+      clearInterval(interval)
     }
   }, [])
 
@@ -120,24 +125,24 @@ export default function BibleVerseOverlay() {
             <motion.div
               key={versePos.id}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 0.7, scale: 1 }}
+              animate={{ opacity: 0.5, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{
                 duration: 1,
                 ease: [0.16, 1, 0.3, 1]
               }}
-              className="absolute max-w-[180px] sm:max-w-[220px] md:max-w-[280px] lg:max-w-[320px] px-2 sm:px-3 md:px-4 [&>div]:opacity-30 md:[&>div]:opacity-100"
+              className="absolute max-w-[180px] sm:max-w-[220px] md:max-w-[200px] lg:max-w-[240px] px-2 sm:px-3 md:px-3 [&>div]:opacity-30 md:[&>div]:opacity-60"
               style={{
                 top: versePos.position.top,
                 left: versePos.position.left,
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <div className="bg-transparent md:bg-white/90 md:backdrop-blur-sm rounded-lg p-2 sm:p-3 md:shadow-lg">
-                <p className="text-primary-dark/30 md:text-primary-dark font-serif italic text-[9px] sm:text-[10px] md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none">
+              <div className="bg-transparent md:bg-white/70 md:backdrop-blur-sm rounded-lg p-2 sm:p-3 md:p-2 md:shadow-md">
+                <p className="text-primary-dark/30 md:text-primary-dark/70 font-serif italic text-[9px] sm:text-[10px] md:text-xs lg:text-sm leading-snug sm:leading-relaxed select-none">
                   "{versePos.verse.text}"
                 </p>
-                <p className="text-accent/30 md:text-accent text-[8px] sm:text-[9px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none">
+                <p className="text-accent/30 md:text-accent/70 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs font-semibold mt-0.5 sm:mt-1 select-none">
                   — {versePos.verse.reference}
                 </p>
               </div>
