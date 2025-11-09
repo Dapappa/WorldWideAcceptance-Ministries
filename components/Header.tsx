@@ -148,12 +148,12 @@ export default function Header() {
           {/* Action Buttons - Desktop */}
           <div className="hidden lg:flex items-center gap-3">
             <a
-              href="https://www.google.com"
+              href="https://www.google.com/search?q=worldwide+acceptance+ministries&oq=&gs_lcrp=EgZjaHJvbWUqCQgAECMYJxjqAjIJCAAQIxgnGOoCMg8IARAjGCcY6gIYgAQYigUyEggCECMYJxjqAhiLAxiABBiKBTISCAMQIxgnGOoCGIsDGIAEGIoFMhIIBBAjGCcY6gIYiwMYgAQYigUyEggFECMYJxjqAhiABBiKBRitBjISCAYQIxgnGOoCGIAEGIoFGK0GMhIIBxAjGCcY6gIYgAQYigUYrQbSAQkxMDk5MmoxajeoAgiwAgHxBeVDzjjRtCGr&sourceid=chrome&ie=UTF-8#lrd=0x53716486042516cd:0x1dbd711ae2de2178,3,,,,"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline py-2 px-6 text-sm"
             >
-              Google
+              Leave a Review
             </a>
             <Link
               href="/giving"
@@ -228,12 +228,12 @@ export default function Header() {
                 ))}
 
                 <a
-                  href="https://www.google.com"
+                  href="https://www.google.com/search?q=worldwide+acceptance+ministries&oq=&gs_lcrp=EgZjaHJvbWUqCQgAECMYJxjqAjIJCAAQIxgnGOoCMg8IARAjGCcY6gIYgAQYigUyEggCECMYJxjqAhiLAxiABBiKBTISCAMQIxgnGOoCGIsDGIAEGIoFMhIIBBAjGCcY6gIYiwMYgAQYigUyEggFECMYJxjqAhiABBiKBRitBjISCAYQIxgnGOoCGIAEGIoFGK0GMhIIBxAjGCcY6gIYgAQYigUYrQbSAQkxMDk5MmoxajeoAgiwAgHxBeVDzjjRtCGr&sourceid=chrome&ie=UTF-8#lrd=0x53716486042516cd:0x1dbd711ae2de2178,3,,,,"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block mt-4 btn-outline text-center"
                 >
-                  Google
+                  Leave a Review
                 </a>
                 <Link
                   href="/giving"
