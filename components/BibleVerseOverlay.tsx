@@ -24,6 +24,21 @@ const bibleVerses: BibleVerse[] = [
   { text: "For where two or three gather in my name, there am I with them.", reference: "Matthew 18:20" },
   { text: "Let everything that has breath praise the Lord.", reference: "Psalm 150:6" },
   { text: "The Lord is my light and my salvation—whom shall I fear?", reference: "Psalm 27:1" },
+  { text: "The Lord bless you and keep you; the Lord make his face shine on you.", reference: "Numbers 6:24-25" },
+  { text: "This is the day the Lord has made; let us rejoice and be glad in it.", reference: "Psalm 118:24" },
+  { text: "But those who hope in the Lord will renew their strength.", reference: "Isaiah 40:31" },
+  { text: "The Lord your God is with you, the Mighty Warrior who saves.", reference: "Zephaniah 3:17" },
+  { text: "Give thanks to the Lord, for he is good; his love endures forever.", reference: "Psalm 107:1" },
+  { text: "Love the Lord your God with all your heart and with all your soul.", reference: "Matthew 22:37" },
+  { text: "The Lord is faithful to all his promises and loving toward all he has made.", reference: "Psalm 145:13" },
+  { text: "Taste and see that the Lord is good; blessed is the one who takes refuge in him.", reference: "Psalm 34:8" },
+  { text: "The name of the Lord is a fortified tower; the righteous run to it and are safe.", reference: "Proverbs 18:10" },
+  { text: "Rejoice in the Lord always. I will say it again: Rejoice!", reference: "Philippians 4:4" },
+  { text: "The Lord is good, a refuge in times of trouble.", reference: "Nahum 1:7" },
+  { text: "But seek first his kingdom and his righteousness.", reference: "Matthew 6:33" },
+  { text: "Great is the Lord and most worthy of praise.", reference: "Psalm 48:1" },
+  { text: "The Lord is compassionate and gracious, slow to anger, abounding in love.", reference: "Psalm 103:8" },
+  { text: "Call to me and I will answer you and tell you great and unsearchable things.", reference: "Jeremiah 33:3" },
 ]
 
 interface VersePosition {
@@ -50,20 +65,23 @@ export default function BibleVerseOverlay() {
       const selectedVerses = shuffled.slice(0, numVerses)
 
       selectedVerses.forEach((verse, index) => {
-        // More positions covering the entire screen with better mobile spacing
+        // Position verses more to the sides, avoiding center content areas
         const positionsConfig = [
-          { top: '12%', left: '3%', rotation: -1.5 },
-          { top: '18%', left: '68%', rotation: 2 },
-          { top: '28%', left: '35%', rotation: -0.5 },
-          { top: '38%', left: '78%', rotation: 1.5 },
-          { top: '48%', left: '8%', rotation: 1 },
-          { top: '58%', left: '62%', rotation: -2 },
-          { top: '68%', left: '25%', rotation: 0.5 },
-          { top: '78%', left: '72%', rotation: -1 },
-          { top: '22%', left: '20%', rotation: 2 },
-          { top: '43%', left: '45%', rotation: -0.5 },
-          { top: '63%', left: '12%', rotation: 1 },
-          { top: '83%', left: '50%', rotation: -1.5 },
+          { top: '15%', left: '1%', rotation: -1 },
+          { top: '20%', left: '85%', rotation: 1.5 },
+          { top: '30%', left: '2%', rotation: -0.5 },
+          { top: '40%', left: '88%', rotation: 1 },
+          { top: '50%', left: '1%', rotation: 0.5 },
+          { top: '60%', left: '86%', rotation: -1.5 },
+          { top: '70%', left: '3%', rotation: 1 },
+          { top: '80%', left: '87%', rotation: -0.5 },
+          { top: '25%', left: '90%', rotation: 1.5 },
+          { top: '35%', left: '2%', rotation: -1 },
+          { top: '55%', left: '89%', rotation: 0.5 },
+          { top: '65%', left: '1%', rotation: -1.5 },
+          { top: '75%', left: '88%', rotation: 1 },
+          { top: '85%', left: '2%', rotation: -0.5 },
+          { top: '45%', left: '90%', rotation: 1.5 },
         ]
 
         const pos = positionsConfig[index % positionsConfig.length]
@@ -80,13 +98,13 @@ export default function BibleVerseOverlay() {
     // Initial verses immediately
     setVerses(generatePositions())
 
-    // Rotate verses more frequently
+    // Rotate verses very frequently - disappear and reappear every few seconds
     const rotationInterval = setInterval(() => {
-      setVerses([]) // Clear first
+      setVerses([]) // Clear first (disappear)
       setTimeout(() => {
-        setVerses(generatePositions())
-      }, 300)
-    }, 8000) // Change every 8 seconds for more frequent updates
+        setVerses(generatePositions()) // Reappear with new verses
+      }, 500) // Wait 0.5s before showing new verses
+    }, 3000) // Change every 3 seconds for frequent rotation
 
     return () => {
       clearInterval(rotationInterval)
@@ -115,12 +133,14 @@ export default function BibleVerseOverlay() {
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <p className="text-primary-dark font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none" style={{ textShadow: '0 2px 6px rgba(255,255,255,0.98), 0 0 2px rgba(255,255,255,0.8)' }}>
-                "{versePos.verse.text}"
-              </p>
-              <p className="text-accent text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none" style={{ textShadow: '0 2px 6px rgba(255,255,255,0.98), 0 0 2px rgba(255,255,255,0.8)' }}>
-                — {versePos.verse.reference}
-              </p>
+              <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-lg">
+                <p className="text-primary-dark font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none">
+                  "{versePos.verse.text}"
+                </p>
+                <p className="text-accent text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none">
+                  — {versePos.verse.reference}
+                </p>
+              </div>
             </motion.div>
           ))}
         </AnimatePresence>
