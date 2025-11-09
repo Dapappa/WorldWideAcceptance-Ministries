@@ -94,34 +94,37 @@ export default function BibleVerseOverlay() {
   }, [])
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
-      <AnimatePresence mode="wait">
-        {verses.map((versePos) => (
-          <motion.div
-            key={versePos.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 0.18, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ 
-              duration: 1.5,
-              ease: [0.16, 1, 0.3, 1]
-            }}
-            className="absolute max-w-[240px] sm:max-w-[280px] md:max-w-[320px] px-2 sm:px-4"
-            style={{
-              top: versePos.position.top,
-              left: versePos.position.left,
-              transform: `rotate(${versePos.position.rotation}deg)`,
-            }}
-          >
-            <p className="text-primary-dark/60 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none drop-shadow-sm">
-              "{versePos.verse.text}"
-            </p>
-            <p className="text-accent/50 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none drop-shadow-sm">
-              — {versePos.verse.reference}
-            </p>
-          </motion.div>
-        ))}
-      </AnimatePresence>
-    </div>
+    <>
+      {/* Background verses - fixed position, visible through sections */}
+      <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden" style={{ mixBlendMode: 'multiply' }}>
+        <AnimatePresence mode="wait">
+          {verses.map((versePos) => (
+            <motion.div
+              key={versePos.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 0.25, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ 
+                duration: 1.5,
+                ease: [0.16, 1, 0.3, 1]
+              }}
+              className="absolute max-w-[240px] sm:max-w-[280px] md:max-w-[320px] px-2 sm:px-4"
+              style={{
+                top: versePos.position.top,
+                left: versePos.position.left,
+                transform: `rotate(${versePos.position.rotation}deg)`,
+              }}
+            >
+              <p className="text-primary-dark/80 font-serif italic text-xs sm:text-sm md:text-base leading-relaxed select-none" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>
+                "{versePos.verse.text}"
+              </p>
+              <p className="text-accent/70 text-[10px] sm:text-xs md:text-sm font-semibold mt-1 select-none" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>
+                — {versePos.verse.reference}
+              </p>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </>
   )
 }

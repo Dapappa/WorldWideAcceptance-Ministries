@@ -184,17 +184,17 @@ export default function BeliefsSlideshow() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-tight drop-shadow-2xl relative z-10"
+              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-12 leading-tight drop-shadow-2xl relative z-10 block"
             >
               {currentBelief.title}
             </motion.h2>
 
             {/* Decorative line */}
             <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "100%" }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto max-w-md rounded-full mt-4 relative z-0"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: "100%", opacity: 1 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+              className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto max-w-md rounded-full mt-0 relative z-0 block"
             />
           </motion.div>
         </AnimatePresence>

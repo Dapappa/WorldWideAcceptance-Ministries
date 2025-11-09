@@ -141,6 +141,12 @@
   /* Layout */
   .section-padding {
     @apply py-12 md:py-20 lg:py-24 px-4 md:px-6 lg:px-8;
+    position: relative;
+  }
+
+  /* Ensure Bible verses are visible in sections */
+  section[class*="section-padding"] {
+    isolation: isolate;
   }
 
   .container-custom {
