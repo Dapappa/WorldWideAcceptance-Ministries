@@ -31,9 +31,11 @@ export function generateMetadata(options: PageMetadataOptions): Metadata {
   const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`
   
   // Add Calgary keywords and community names if not already present
-  const communityKeywords = nearbyCommunities.slice(0, 20).map(community => 
-    `church in ${community}`, `${community} church`, `${community} Calgary church`
-  )
+  const communityKeywords = nearbyCommunities.slice(0, 20).flatMap(community => [
+    `church in ${community}`,
+    `${community} church`,
+    `${community} Calgary church`
+  ])
   
   const allKeywords = [
     ...keywords,
