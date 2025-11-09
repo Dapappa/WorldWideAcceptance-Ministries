@@ -139,7 +139,7 @@ export default function BeliefsSlideshow() {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             exit={{ opacity: 0, y: -50, rotateX: 15 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto relative z-20"
           >
             {/* Icon with animation */}
             <motion.div
@@ -184,7 +184,7 @@ export default function BeliefsSlideshow() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight drop-shadow-2xl"
+              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-tight drop-shadow-2xl relative z-10"
             >
               {currentBelief.title}
             </motion.h2>
@@ -194,7 +194,7 @@ export default function BeliefsSlideshow() {
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto max-w-md rounded-full"
+              className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto max-w-md rounded-full mt-4 relative z-0"
             />
           </motion.div>
         </AnimatePresence>
