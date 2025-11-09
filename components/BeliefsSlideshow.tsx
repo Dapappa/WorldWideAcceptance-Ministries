@@ -139,7 +139,7 @@ export default function BeliefsSlideshow() {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             exit={{ opacity: 0, y: -50, rotateX: 15 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center max-w-4xl mx-auto relative z-20"
+            className="text-center max-w-4xl mx-auto relative z-20 flex flex-col items-center"
           >
             {/* Icon with animation */}
             <motion.div
@@ -179,23 +179,26 @@ export default function BeliefsSlideshow() {
               </span>
             </motion.div>
 
-            {/* Title */}
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-12 leading-tight drop-shadow-2xl relative z-10 block"
-            >
-              {currentBelief.title}
-            </motion.h2>
+            {/* Title and Decorative Line Container */}
+            <div className="w-full flex flex-col items-center">
+              {/* Title */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-12 leading-tight drop-shadow-2xl relative z-10"
+              >
+                {currentBelief.title}
+              </motion.h2>
 
-            {/* Decorative line */}
-            <motion.div
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: "100%", opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto max-w-md rounded-full mt-0 relative z-0 block"
-            />
+              {/* Decorative line */}
+              <motion.div
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: "100%", opacity: 1 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+                className="h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent max-w-md rounded-full relative z-0"
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
 
