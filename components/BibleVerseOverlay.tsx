@@ -96,13 +96,13 @@ export default function BibleVerseOverlay() {
   return (
     <>
       {/* Background verses - fixed position, visible through sections */}
-      <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden" style={{ mixBlendMode: 'multiply' }}>
+      <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
         <AnimatePresence mode="wait">
           {verses.map((versePos) => (
             <motion.div
               key={versePos.id}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 0.25, scale: 1 }}
+              animate={{ opacity: 0.3, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ 
                 duration: 1.5,
