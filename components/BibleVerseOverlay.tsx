@@ -96,13 +96,13 @@ export default function BibleVerseOverlay() {
   return (
     <>
       {/* Background verses - fixed position, visible through sections */}
-      <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-[100] overflow-hidden">
         <AnimatePresence mode="wait">
           {verses.map((versePos) => (
             <motion.div
               key={versePos.id}
               initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 0.5, scale: 1 }}
+              animate={{ opacity: 0.7, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{
                 duration: 1,
@@ -115,10 +115,10 @@ export default function BibleVerseOverlay() {
                 transform: `rotate(${versePos.position.rotation}deg)`,
               }}
             >
-              <p className="text-primary-dark/90 font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none" style={{ textShadow: '0 2px 4px rgba(255,255,255,0.95)' }}>
+              <p className="text-primary-dark font-serif italic text-[10px] sm:text-xs md:text-sm lg:text-base leading-snug sm:leading-relaxed select-none" style={{ textShadow: '0 2px 6px rgba(255,255,255,0.98), 0 0 2px rgba(255,255,255,0.8)' }}>
                 "{versePos.verse.text}"
               </p>
-              <p className="text-accent/90 text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none" style={{ textShadow: '0 2px 4px rgba(255,255,255,0.95)' }}>
+              <p className="text-accent text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold mt-0.5 sm:mt-1 select-none" style={{ textShadow: '0 2px 6px rgba(255,255,255,0.98), 0 0 2px rgba(255,255,255,0.8)' }}>
                 — {versePos.verse.reference}
               </p>
             </motion.div>
