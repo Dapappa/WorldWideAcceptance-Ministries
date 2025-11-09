@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import BibleVerseOverlay from '@/components/BibleVerseOverlay'
 import { defaultMetadata } from '@/lib/seo'
 import { createOrganizationSchema } from '@/lib/schema'
 
@@ -36,12 +37,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body className="font-sans">
+      <body className="font-sans relative">
         <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen relative z-10">
           {children}
         </main>
         <Footer />
+        <BibleVerseOverlay />
       </body>
     </html>
   )

@@ -34,8 +34,8 @@ export default function AboutPage() {
       </section>
 
       {/* Image Slideshow */}
-      <section className="section-padding bg-white">
-        <div className="container-custom">
+      <section className="section-padding bg-enhanced-white relative overflow-hidden">
+        <div className="container-custom relative z-10">
           <ImageSlideshow />
         </div>
       </section>

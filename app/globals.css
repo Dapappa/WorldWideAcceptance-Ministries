@@ -16,6 +16,31 @@
 
   body {
     @apply bg-white text-gray-900 antialiased;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(30, 58, 95, 0.02) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.015) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+    animation: backgroundShift 20s ease-in-out infinite;
+  }
+
+  @keyframes backgroundShift {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
   }
 
   /* Selection color */
@@ -188,6 +213,150 @@
     background-size: 32px 32px;
   }
 
+  /* Enhanced White Background Patterns */
+  .bg-enhanced-white {
+    background: linear-gradient(135deg, #ffffff 0%, #fefbf3 25%, #ffffff 50%, #f8fafc 75%, #ffffff 100%);
+    position: relative;
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .bg-enhanced-white::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(30, 58, 95, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+    pointer-events: none;
+    animation: pulseGlow 8s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .bg-enhanced-white::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(45deg, transparent 48%, rgba(212, 175, 55, 0.02) 49%, rgba(212, 175, 55, 0.02) 51%, transparent 52%),
+      linear-gradient(-45deg, transparent 48%, rgba(30, 58, 95, 0.015) 49%, rgba(30, 58, 95, 0.015) 51%, transparent 52%);
+    background-size: 60px 60px;
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* Subtle floating particles effect */
+  .bg-floating-light {
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-floating-light::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(212, 175, 55, 0.15), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(30, 58, 95, 0.1), transparent),
+      radial-gradient(1px 1px at 50% 50%, rgba(212, 175, 55, 0.2), transparent),
+      radial-gradient(1px 1px at 80% 20%, rgba(30, 58, 95, 0.15), transparent),
+      radial-gradient(2px 2px at 30% 80%, rgba(212, 175, 55, 0.1), transparent);
+    background-size: 200px 200px, 300px 300px, 150px 150px, 250px 250px, 180px 180px;
+    background-position: 0% 0%, 100% 0%, 50% 100%, 0% 50%, 100% 100%;
+    animation: floatParticles 20s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatParticles {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+      opacity: 0.6;
+    }
+    33% {
+      transform: translate(30px, -30px) scale(1.1);
+      opacity: 0.8;
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+      opacity: 0.7;
+    }
+  }
+
+  /* Divine light rays effect */
+  .bg-divine-rays {
+    background: #ffffff;
+    position: relative;
+  }
+
+  .bg-divine-rays::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(105deg, transparent 40%, rgba(212, 175, 55, 0.03) 50%, transparent 60%),
+      linear-gradient(15deg, transparent 40%, rgba(212, 175, 55, 0.02) 50%, transparent 60%),
+      linear-gradient(165deg, transparent 40%, rgba(30, 58, 95, 0.02) 50%, transparent 60%);
+    background-size: 100% 100%;
+    pointer-events: none;
+    animation: rayMove 12s ease-in-out infinite;
+  }
+
+  @keyframes rayMove {
+    0%, 100% {
+      opacity: 0.5;
+      transform: rotate(0deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: rotate(2deg);
+    }
+  }
+
+  /* Subtle shimmer effect */
+  .bg-shimmer-white {
+    background: linear-gradient(135deg, #ffffff 0%, #fefbf3 50%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-shimmer-white::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(212, 175, 55, 0.05) 50%,
+      transparent 70%
+    );
+    animation: shimmer 8s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+
   /* Cards */
   .card {
     @apply bg-white rounded-2xl p-6 md:p-8 shadow-soft border border-gray-100 transition-all duration-300;
@@ -294,6 +463,20 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Disable background animations for reduced motion */
+  body::before {
+    animation: none !important;
+  }
+
+  .bg-enhanced-white,
+  .bg-enhanced-white::before,
+  .bg-enhanced-white::after,
+  .bg-floating-light::before,
+  .bg-divine-rays::before,
+  .bg-shimmer-white::before {
+    animation: none !important;
   }
 }
 
